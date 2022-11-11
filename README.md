@@ -1,8 +1,5 @@
 # ContextMenuFunnies
 [NeosModLoader](https://github.com/zkxs/NeosModLoader) mod for [Neos](https://neos.com/) that changes how the default context menu visually.
- 
-# What it does
-It makes all imported audio clips become global but only when in range of the clip.
 
 # Installation
 1. Install [NeosModLoader](https://github.com/zkxs/NeosModLoader).
