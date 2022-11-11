@@ -2,8 +2,13 @@
 [NeosModLoader](https://github.com/zkxs/NeosModLoader) mod for [Neos](https://neos.com/) that changes how the default context menu visually.
  
 # What it does
-It makes all imported audio clips become global but only when in range of the clip.
+Lets the user change some values that the context menu uses to display it self.
 
+**Notes**
+- Configs can be set in the [NML Settings](https://github.com/badhaloninja/NeosModSettings) page in your dash
+- Menu scale multiplier does work but you need to respawn for it to work, will fix later
+
+Example below
 # Installation
 1. Install [NeosModLoader](https://github.com/zkxs/NeosModLoader).
 2. Place [ContextMenuFunnies.dll](https://github.com/LeCloutPanda/ContextMenuFunnies/releases/download/v1.0.0/ContextMenuFunnies.dll) into your `nml_mods` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\NeosVR\nml_mods` for a default install. You can create it if it's missing, or if you launch the game once with NeosModLoader installed it will create the folder for you.
