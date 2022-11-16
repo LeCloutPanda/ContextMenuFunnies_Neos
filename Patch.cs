@@ -9,9 +9,11 @@ namespace ContextMenuFunnies
 {
     public class Patch : NeosMod
     {
+        // Thank you APnda(https://github.com/Ap6661) for helping me conceptualize this idea
+
         public override string Name => "Context-Menu-Funnies";
         public override string Author => "LeCloutPanda";
-        public override string Version => "1.0.0";
+        public override string Version => "1.0.1";
 
         public static ModConfiguration config;
 
@@ -36,7 +38,7 @@ namespace ContextMenuFunnies
         [AutoRegisterConfigKey]
         private static ModConfigurationKey<bool> CUSTOM_ICON_ENABLED = new ModConfigurationKey<bool>("Custom icon visibility", "", () => false);
         [AutoRegisterConfigKey]
-        private static ModConfigurationKey<string> IMAGE_URI = new ModConfigurationKey<string>("Custom icon url", "", () => "");
+        private static ModConfigurationKey<string> IMAGE_URI = new ModConfigurationKey<string>("Custom icon url", "", () => "neosdb:///63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058.png");
 
         public override void OnEngineInit()
         {
@@ -69,6 +71,7 @@ namespace ContextMenuFunnies
                     ____innerCircle.Target.Enabled = config.GetValue(INNER_CIRCLE_ENABLED);
                     ____iconImage.Target.Slot.ActiveSelf = config.GetValue(ICON_ENABLED);
 
+                    if (iconComp == null) return;
                     iconComp.URL.Value = new Uri(config.GetValue(IMAGE_URI));
                     iconSlot.ActiveSelf_Field.Value = config.GetValue(CUSTOM_ICON_ENABLED);
                 });
@@ -87,15 +90,17 @@ namespace ContextMenuFunnies
                     Slot visualSlot = __instance.Slot[0];
                     visualSlot.LocalScale = visualSlot.LocalScale * config.GetValue(SIZE_MULTIPLIER);
 
-                    if (config.GetValue(CUSTOM_ICON_ENABLED))
-                    {
-                        iconSlot = ____innerCircle.Target.Slot.AddSlot("newImage");
-                        Image newImageComp = iconSlot.AttachComponent<Image>();
-                        SpriteProvider newSpriteComp = newImageComp.Slot.AttachSprite(new Uri(config.GetValue(IMAGE_URI)), true, false, true, null);
-                        newImageComp.Sprite.Target = newSpriteComp;
-                        iconComp = newSpriteComp.Slot.GetComponent<StaticTexture2D>();
-                        newImageComp.Tint.Value = new color(1f);
-                    }
+                    if (!config.GetValue(CUSTOM_ICON_ENABLED)) return;
+
+                    iconSlot = ____innerCircle.Target.Slot.AddSlot("newImage");
+                    Image newImageComp = iconSlot.AttachComponent<Image>();
+
+                    string url = config.GetValue(IMAGE_URI).Trim() == "" || config.GetValue(IMAGE_URI).Trim() == null ? "neosdb:///63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058.png" : config.GetValue(IMAGE_URI);
+
+                    SpriteProvider newSpriteComp = newImageComp.Slot.AttachSprite(new Uri(url), true, false, true, null);
+                    newImageComp.Sprite.Target = newSpriteComp;
+                    iconComp = newSpriteComp.Slot.GetComponent<StaticTexture2D>();
+                    newImageComp.Tint.Value = new color(1f);
                 });
             }
         }
